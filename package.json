@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/mjbulostin/ParkRangers#readme",
   "dependencies": {
-    "@supabase/supabase-js": "^1.11.9",
+    "@supabase/supabase-js": "^1.11.10",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
