@@ -133,7 +133,6 @@ app.post("/addToParksDB", async (req, res) => {
       parkImage: parkImage,
     },
   ]);
-  console.log(data);
   parkIdGlobal = data[0].id;
   res.send("WORKS!");
 });
@@ -168,7 +167,7 @@ app.post("/login", async (req, res) => {
 
 //return list of user's trips for trip name validation
 app.get("/user-trip-names",async (req,res) => {
-  nameObj = {nameString: ""}
+  nameObj = []
   const userId = req.session.user.userId
   const {data,error} = await supabase
   .from("Trips")
@@ -176,7 +175,7 @@ app.get("/user-trip-names",async (req,res) => {
   .match({userId: userId})
   if(data){
     for(object of data){
-      nameObj.nameString+=object.tripName
+      nameObj.push(object.tripName)
     }
     res.send(nameObj)
   }
@@ -187,7 +186,6 @@ app.get("/user-trip-names",async (req,res) => {
 //Create a trip in the DB
 app.post("/addToTripsDB", async (req, res) => {
   const { tripName, startDate, endDate } = req.body;
-  console.log(parkIdGlobal);
 
   const { data, error } = await supabase.from("Trips").insert([
     {
@@ -198,7 +196,6 @@ app.post("/addToTripsDB", async (req, res) => {
       parkId: parkIdGlobal,
     },
   ]);
-  console.log(data);
   res.send("WORKS~!");
 });
 
@@ -222,7 +219,6 @@ app.post("/edit-trip/:tripName", async (req, res) => {
 //delete a user's trip
 app.post("/delete-trip/:tripName", async (req, res) => {
   const { tripName } = req.params;
-  console.log(req.params);
   const { data, error } = await supabase
     .from("Trips")
     .delete()
@@ -233,7 +229,6 @@ app.post("/delete-trip/:tripName", async (req, res) => {
 //Delete park from a user's trip
 app.post("/delete-park/:id", async (req, res) => {
   const { id } = req.params;
-  console.log(req.params);
   const { data, error } = await supabase
     .from("Trips")
     .delete()

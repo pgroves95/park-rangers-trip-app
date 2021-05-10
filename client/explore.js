@@ -40,11 +40,9 @@ form.addEventListener("submit", async (e) => {
   const tripName = form.querySelector(".trip");
   const data = await fetch("http://localhost:3000/user-trip-names")
   const json = await data.json()
-  const usedNames = json.nameString.split(" ")
   const startDate = form.querySelector("#start");
   const endDate = form.querySelector("#end");
-  for(tName of usedNames){
-    console.log(usedNames)
+  for(tName of json){
     if(tName === tripName.value){
       tripName.value = ""
       regionSelector.value = ""
@@ -141,7 +139,6 @@ const getParkByState = async (state) => {
       alert(
         "This park has been added to your itenerary! Good luck on your Explorations!"
       );
-      console.log(dataForTripDB);
     });
     infoDiv.append(parkName, parkState, viewMore, itenerary);
     imgDiv.append(mainImg);
